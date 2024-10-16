@@ -1,0 +1,134 @@
+<!--<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cash Flow Minimization</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Cash Flow Minimization</h1>
+        <form action="/calculate" method="post" class="matrix-form">
+            <input type="hidden" name="numPersons" value="{{ numPersons }}">
+            <h2>Enter the graph as a matrix:</h2>
+            <div class="matrix">
+                {% for i in range(numPersons) %}
+                    <div class="matrix-row">
+                        {% for j in range(numPersons) %}
+                            {% if i == j %}
+                                <input type="number" name="graph[{{ i }}][{{ j }}]" value="0" readonly>
+                            {% else %}
+                                <input type="number" name="graph[{{ i }}][{{ j }}]" min="0" required>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+            </div>
+            <br>
+            <button type="submit">Calculate</button>
+        </form>
+    </div>
+</body>
+</html>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cash Flow Minimization</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Cash Flow Minimization</h1>
+        <form action="/calculate" method="post" class="matrix-form">
+            <input type="hidden" name="numPersons" value="{{ numPersons }}">
+            <h2>Enter the graph as a matrix:</h2>
+            <div class="matrix">
+                div class="matrix-row">
+                    <div class="label"></div> 
+                    {% for j in range(numPersons) %}
+                        <div class="label">Person {{ j + 1 }}</div>
+                    {% endfor %}
+                </div> 
+                {% for i in range(numPersons) %}
+                    <div class="matrix-row">
+                        <div class="label">Person {{ i + 1 }}</div>
+                        {% for j in range(numPersons) %}
+                            {% if i == j %}
+                                <input type="number" name="graph[{{ i }}][{{ j }}]" value="0" readonly>
+                            {% else %}
+                                <input type="number" name="graph[{{ i }}][{{ j }}]" min="0" required>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+            </div>
+            <br>
+            <button type="submit">Calculate</button>
+        </form>
+    </div>
+</body>
+</html>
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cash Flow Minimization</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Cash Flow Minimization</h1>
+        <form action="/calculate" method="post" class="matrix-form">
+            <input type="hidden" name="numPersons" value="{{ numPersons }}">
+            <h2>Enter the graph as a matrix:</h2>
+            <div class="matrix-wrapper">
+                <div class="matrix" id="matrix-container">
+                    <div class="matrix-row">
+                        <div class="label"></div> <!-- Empty top-left corner -->
+                        {% for j in range(numPersons) %}
+                            <div class="label">Person {{ j + 1 }}</div>
+                        {% endfor %}
+                    </div>
+                    {% for i in range(numPersons) %}
+                        <div class="matrix-row">
+                            <div class="label">Person {{ i + 1 }}</div>
+                            {% for j in range(numPersons) %}
+                                {% if i == j %}
+                                    <input type="number" name="graph[{{ i }}][{{ j }}]" value="0" readonly>
+                                {% else %}
+                                    <input type="number" name="graph[{{ i }}][{{ j }}]" min="0" required>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <br>
+            <button type="submit">Calculate</button>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Safely parse numPersons as an integer
+            var numPersons = parseInt("{{ numPersons }}", 10);
+            if (!isNaN(numPersons)) {
+                var matrixContainer = document.getElementById("matrix-container");
+                matrixContainer.style.gridTemplateColumns = "auto repeat(" + numPersons + ", 1fr)";
+            } else {
+                console.error("Invalid number of persons:", "{{ numPersons }}");
+            }
+        });
+    </script>
+</body>
+</html>
+
+
